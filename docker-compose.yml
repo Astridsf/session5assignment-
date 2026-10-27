@@ -1,0 +1,15 @@
+services:
+  web:
+    image: nginx:alpine
+    ports:
+      - "8080:80"
+
+  checker:
+    build: .
+    depends_on:
+      - web
+    environment:
+      TARGET_URL: http://web/
+      INTERVAL: 5
+    volumes:
+      - ./logs:/data
